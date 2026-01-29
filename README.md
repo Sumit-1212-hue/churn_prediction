@@ -113,18 +113,50 @@ Random Forest is preferred when retention actions are costly and higher confiden
 
 In practice, both models can be used together, where Logistic Regression acts as a screening model and Random Forest refines high-confidence churn cases.
 
+The Random Forest model achieved the highest ROC-AUC score while maintaining a better balance between precision and recall, making it suitable for identifying high-risk churn customers.
+
+## Model Explainability
+To interpret the Random Forest model and understand the drivers behind churn predictions, model-agnostic explainability techniques were applied.
+
+### Explainability Techniques Used
+- **Permutation Feature Importance**: Measures the decrease in model performance when a feature’s values are randomly shuffled.
+- **Partial Dependence Plots (PDP)**: Visualize how changes in key numerical features affect churn probability.
+
+### Key Insights from Explainability
+- **Tenure** is the strongest predictor of churn. Customers with shorter tenure are significantly more likely to churn, highlighting the importance of early-stage retention.
+- Higher **TotalCharges** early in the customer lifecycle indicate dissatisfaction and increase churn risk.
+- Customers using **fiber optic internet** show higher churn probability, potentially due to pricing sensitivity or service quality expectations.
+- **Long-term contracts (one-year and two-year)** substantially reduce churn likelihood.
+- Value-added services such as **online security** and **technical support** lower the probability of churn.
+- **Senior citizens** exhibit slightly higher churn risk, suggesting the need for targeted engagement strategies.
+
+These insights translate model predictions into actionable business strategies for customer retention.
+
+## Business Impact
+
+The churn prediction model provides actionable insights that can support business decision-making:
+
+- Enables early identification of high-risk customers, especially those with short tenure.
+- Supports targeted retention strategies such as contract incentives and onboarding programs.
+- Highlights price-sensitive segments, informing pricing and discount strategies.
+- Identifies the value of support services in reducing customer churn.
+
+By aligning model outputs with business actions, the system helps improve customer retention and reduce revenue loss.
+
 
 ## Key Takeaways
 
 - Customer churn is strongly influenced by tenure, pricing, payment method, and contract type.
 - Early-stage customers on high-priced plans are at the highest risk of churn.
 - Automatic payment methods and long-term contracts significantly reduce churn.
+- Model explainability techniques (permutation importance and partial dependence) enable clear identification of key churn drivers.
 - Careful handling of data quality issues is essential for building reliable predictive models.
 
-## Next Steps
 
-- Perform data preprocessing and feature engineering.
-- Encode categorical variables and scale numerical features.
-- Train and evaluate multiple machine learning models.
-- Add model explainability using SHAP.
-- Deploy the final model as an API with MLOps best practices.
+## Future Enhancements
+
+- Perform decision threshold tuning to balance precision and recall based on business cost considerations.
+- Deploy the churn prediction model using a REST API (e.g., FastAPI) for real-time inference.
+- Monitor model performance and data drift to ensure long-term reliability.
+- Explore cost-sensitive learning or additional ensemble methods to further improve churn detection.
+
